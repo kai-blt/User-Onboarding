@@ -45,6 +45,7 @@ const defaultFormData = {
     name: '',
     email: '',
     password: '',
+    role: '',
     agree: false
 }
 
@@ -52,6 +53,7 @@ const defaultErrorState = {
     name: '',
     email: '',
     password: '',
+    role: '',
     agree: ''
 }
 
@@ -117,6 +119,7 @@ export default function Form(props) {
                 <div>{errors.email}</div>
                 <div>{errors.password}</div>
                 <div>{errors.agree}</div>
+                <div>{errors.role}</div>
             </ErrorContainer>
             <h1>Add Users</h1>
             <form onSubmit={submit}>
@@ -130,6 +133,15 @@ export default function Form(props) {
                 <br/>
                 <label>Password<br/>                    
                     <input type="text" name="password" value={formData.password} onChange={handleForm} />
+                </label>
+                <br/>
+                <label>Role<br/>                    
+                    <select name="role" checked={formData.role} onChange={handleForm}>
+                        <option value=''>--please select a role--</option>
+                        <option value='Front End Engineer'>Front End Engineer</option>
+                        <option value='Back End Engineer'>Back End Engineer</option>
+                        <option value='UX Designer'>UX Designer</option>
+                    </select>
                 </label>
                 <br/>
                 <label>Agree to TOS<br/>                    
