@@ -97,6 +97,7 @@ export default function Form(props) {
                 const newUser = res.data;
                 setUsers([...users, newUser])
                 console.log(JSON.stringify(newUser))
+                setFormData(defaultFormData)
             })
             .catch(err => {
                 alert('There was an error!')
@@ -116,11 +117,11 @@ export default function Form(props) {
         <>
         <FormContainer>            
             <ErrorContainer>
-                <div>{errors.name}</div>
-                <div>{errors.email}</div>
-                <div>{errors.password}</div>
-                <div>{errors.agree}</div>
-                <div>{errors.role}</div>
+                <div className='nameError'>{errors.name}</div>
+                <div className='emailError'>{errors.email}</div>
+                <div className='passwordError'>{errors.password}</div>
+                <div className='checkedError'>{errors.agree}</div>
+                <div className='roleError'>{errors.role}</div>
             </ErrorContainer>
             <h1>Add Users</h1>
             <form onSubmit={submit}>
