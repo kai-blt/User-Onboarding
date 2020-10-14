@@ -75,11 +75,11 @@ export default function Form(props) {
     //Keep track of users entered
     const [users, setUsers] = useState([]);
     
-    //Every time form data is filled out, check if it's valid. If so disable button.
+    //Every time form data is filled out, check schema to see if it's valid. If so disable button.
     useEffect(() => {
         schema.isValid(formData)
             .then(valid => setDisabled(!valid))
-            .catch(err => alert())
+            .catch(err => alert(err))
     }, [formData])
 
 
@@ -99,7 +99,7 @@ export default function Form(props) {
                 console.log(JSON.stringify(newUser))
             })
             .catch(err => {
-                debugger
+                alert('There was an error!')
             })
     }
 
