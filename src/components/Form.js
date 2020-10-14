@@ -46,6 +46,7 @@ const defaultFormData = {
     email: '',
     password: '',
     role: '',
+    bestlanguage: '',
     agree: false
 }
 
@@ -158,7 +159,19 @@ export default function Form(props) {
                         <option value='UX Designer'>UX Designer</option>
                     </select>
                 </label>
+                <h3>Favorite Language</h3>
+                <label>Python<br/>
+                    <input type="radio" name="bestlanguage" value="Python" checked={formData.bestlanguage === 'Python'} onChange={handleForm}></input>      
+                </label>
                 <br/>
+                <label>Java<br/>
+                    <input type="radio" name="bestlanguage" value="Java" checked={formData.bestlanguage === 'Java'} onChange={handleForm}></input>      
+                </label>
+                <br/>
+                <label>Node.js<br/>
+                    <input type="radio" name="bestlanguage" value="Node.js" checked={formData.bestlanguage === 'Node.js'} onChange={handleForm}></input>      
+                </label>
+                <br/><br/>
                 <label>Agree to TOS<br/>                    
                     <input
                         type="checkbox"

@@ -6,6 +6,7 @@ const schema = yup.object().shape({
     email: yup.string().required('Please enter your email address').email('Please enter a valid email address'),
     password: yup.string().required('Please enter a password').min(10, 'Please create a strong password that is greater than 10 characters'),
     role: yup.string().oneOf(['Front End Engineer', 'Back End Engineer', 'UX Designer'], 'Please select a role'),
+    bestlanguage: yup.string().oneOf(['Python', 'Java', 'Node.js'], 'Please pick your favorite language'),
     agree: yup.boolean().oneOf([true], 'Please accept our TOS agreement')
 })
 
