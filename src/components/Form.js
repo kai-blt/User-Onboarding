@@ -9,11 +9,16 @@ import axios from 'axios'
 const FormContainer = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
-    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
     padding: 2%;
     font-weight: 500;
-
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 25px #222;
+    margin: 2% 0;
+   
     input {
         margin: 1%;
     }
@@ -26,9 +31,12 @@ const FormContainer = styled.div`
 `;
 
 const ErrorContainer = styled.div`
-    margin: 2% 0;
     padding: 2% 0;
     color: red;
+`;
+
+const UserContainer = styled.div`
+    color: #fff;
 `;
 
 
@@ -102,6 +110,7 @@ export default function Form(props) {
     }
 
     return(
+        <>
         <FormContainer>            
             <ErrorContainer>
                 <div>{errors.name}</div>
@@ -109,6 +118,7 @@ export default function Form(props) {
                 <div>{errors.password}</div>
                 <div>{errors.agree}</div>
             </ErrorContainer>
+            <h1>Add Users</h1>
             <form onSubmit={submit}>
                 <label>Name<br/>               
                     <input type="text" name="name" value={formData.name} onChange={handleForm} />
@@ -127,10 +137,12 @@ export default function Form(props) {
                 </label>
                 <br/>
                 <button disabled={disabled}>Submit</button>
-            </form>
-
-            { /*Display users only if there is data. Replace json [], {}, ',' and " with regex */ }
-            { (users.length !== 0) && <pre>{JSON.stringify(users, null, '\t' ).replace(/[\[\]\{\}\"\,]/g, '')}</pre> }
-        </FormContainer>        
+            </form>           
+        </FormContainer>   
+        <UserContainer>
+             { /*Display users only if there is data. Replace json [], {}, ',' and " with regex */ }
+         { (users.length !== 0) && <pre>{JSON.stringify(users, null, '\t' ).replace(/[\[\]\{\}\"\,]/g, '')}</pre> }     
+        </UserContainer>
+        </>
     )
 }
