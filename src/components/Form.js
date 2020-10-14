@@ -124,11 +124,21 @@ export default function Form(props) {
             <h1>Add Users</h1>
             <form onSubmit={submit}>
                 <label>Name<br/>               
-                    <input type="text" name="name" value={formData.name} onChange={handleForm} />
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleForm}
+                    />
                 </label>
                 <br/>
                 <label>Email<br/>                
-                    <input type="email" name="email" value={formData.email} onChange={handleForm} />
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email} 
+                        onChange={handleForm}
+                    />
                 </label>
                 <br/>
                 <label>Password<br/>                    
@@ -145,7 +155,12 @@ export default function Form(props) {
                 </label>
                 <br/>
                 <label>Agree to TOS<br/>                    
-                    <input type="checkbox" name="agree" checked={formData.agree} onChange={handleForm} />
+                    <input
+                        type="checkbox"
+                        name="agree"
+                        checked={formData.agree}
+                        onChange={handleForm}
+                    />
                 </label>
                 <br/>
                 <button disabled={disabled}>Submit</button>
