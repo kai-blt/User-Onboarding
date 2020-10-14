@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as yup from 'yup'
-
+import axios from 'axios'
 
 
 //Styled components
@@ -73,14 +73,23 @@ export default function Form(props) {
             .catch(err => alert())
     }, [formData])
 
+
+    //Check the schema and set errors for display
     const setFormErrors = (name, value) => {
         yup.reach(schema, name).validate(value)
             .then(() => setErrors({ ...errors, [name]: '' }))
             .catch(err => setErrors({ ...errors, [name]: err.errors[0] }))
     }
 
-    const submit = () => {
-
+    const submit = (evt) => {
+        evt.preventDefault();
+        axios.post('https://reqres.in/api/users', formData)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                debugger
+            })
     }
 
     const handleForm = (evt) => {
