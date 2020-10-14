@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as yup from 'yup'
+import schema from '../schema/schema'
 import axios from 'axios'
 
 
@@ -47,13 +48,7 @@ const defaultErrorState = {
 }
 
 
-//Yup Validation Schema
-const schema = yup.object().shape({
-    name: yup.string().required('Please enter your name').min(4, 'Please enter a name greater than 4 characters'),
-    email: yup.string().required('Please enter your email address').email('Please enter a valid email address'),
-    password: yup.string().required('Please enter a password').min(10, 'Please create a strong password that is greater than 10 characters'),
-    agree: yup.boolean().oneOf([true], 'Please accept our TOS agreement')
-})
+
 
 
 export default function Form(props) {
@@ -66,6 +61,9 @@ export default function Form(props) {
     //Disable button until form is complete
     const [disabled, setDisabled] = useState(true);
 
+    //Keep track of users entered
+    const [users, setUsers] = useState([]);
+    
     //Every time form data is filled out, check if it's valid. If so disable button.
     useEffect(() => {
         schema.isValid(formData)
@@ -85,7 +83,9 @@ export default function Form(props) {
         evt.preventDefault();
         axios.post('https://reqres.in/api/users', formData)
             .then(res => {
-                console.log(res);
+                const newUser = res.data;
+                setUsers([...users, newUser])
+                console.log(JSON.stringify(newUser))
             })
             .catch(err => {
                 debugger
@@ -128,6 +128,9 @@ export default function Form(props) {
                 <br/>
                 <button disabled={disabled}>Submit</button>
             </form>
-        </FormContainer>
+
+            { /*Display users only if there is data. Replace json [], {}, ',' and " with regex */ }
+            { (users.length !== 0) && <pre>{JSON.stringify(users, null, '\t' ).replace(/[\[\]\{\}\"\,]/g, '')}</pre> }
+        </FormContainer>        
     )
 }
