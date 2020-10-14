@@ -142,7 +142,12 @@ export default function Form(props) {
                 </label>
                 <br/>
                 <label>Password<br/>                    
-                    <input type="text" name="password" value={formData.password} onChange={handleForm} />
+                    <input 
+                        type="text"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleForm}
+                    />
                 </label>
                 <br/>
                 <label>Role<br/>                    
