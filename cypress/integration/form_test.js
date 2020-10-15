@@ -17,8 +17,9 @@ describe('Form Testing', () => {
     const emailError = () => cy.get('.emailError');
     const passwordError = () => cy.get('.passwordError');
     const submitButton = () => cy.get('button')
+    const preTag = () => cy.get('pre');
 
-
+    //Check if Inputs Exist
     describe('Form Inputs exist', () => {
         it('checks if the element exists', () => {
             nameField().should('exist');
@@ -26,11 +27,21 @@ describe('Form Testing', () => {
             passwordField().should('exist');
             roleDropdown().should('exist');
             radioButton().should('exist');
-            tosCheckbox().should('exist')
+            tosCheckbox().should('exist');
+            submitButton().should('exist');
+            preTag().should('not.exist')
         })       
     })
 
+    //Check if submit starts disabled
+    describe('Check if submit starts disabled', () => {
+        it('Checks to see if submit starts disabled', () => {
+            submitButton().should('be.disabled');
+        })
+    })
 
+
+    //Check inputs can be used
     describe('Inputs Can Be Used', () => {
         it('Types in the name field and verifies correct value', () => {               
             nameField()
@@ -69,7 +80,8 @@ describe('Form Testing', () => {
         })
     });
     
-   describe('Error message tests', () => {
+    //Check error messages display correctly
+    describe('Error message tests', () => {
         it('Types characters in the name field under required amt', () => {
             nameField()
                 .type('Br')
@@ -95,19 +107,32 @@ describe('Form Testing', () => {
         })
     })
 
+      
+    //Check if form can be submitted
+    describe('Checks if user can submit form', () => {
+        it('Fills out the form appropriately and checks if form can be submitted', () => {
+            nameField().type('Brendan');
+            emailField().type('test@test.com');
+            passwordField().type('1234567890');
+            roleDropdown().select('Front End Engineer');
+            radioButton().click();
+            tosCheckbox().click();
+            preTag().should('not.exist')
+            submitButton().click();
+            cy.wait(100)
+            preTag().should('exist')
+        })
+    })
     
-    
-    // describe('Corrects all fields, submits form and checks for cleared fields', function() {
-    //     //Arrange
-    //     it('Makes fields viable and submits form', function() {
-    //         //Act   
-    //         cy.get('input[name="name"]').type('t').should('have.value', 'Test')
-    //         cy.get('input[name="email"]').type('.com').should('have.value', 'email@email.com')
-    //         cy.get('input[name="password"]').type('0').should('have.value', '1234567890')
-    //         cy.get('button').click()
-    //         cy.get('input[name="name"]').should('have.value', '')
-    
-    //     })
-    // });
-    
+    //Check if form validation kicks in if fields left empty
+    describe('Form Validation', () => {
+        it('Check that form cannot be submitted if fields left empty', () => {
+            nameField().type('Brendan');
+            passwordField().type('1234567890');
+            roleDropdown().select('Front End Engineer');
+            radioButton().click();
+            tosCheckbox().click();
+            submitButton().should('be.disabled');
+        })
+    })
 })
