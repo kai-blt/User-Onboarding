@@ -15,6 +15,7 @@ describe('Form Testing', () => {
     const tosCheckbox = () =>  cy.get('input[name="agree"]');
     const nameError = () => cy.get('.nameError');
     const emailError = () => cy.get('.emailError');
+    const passwordError = () => cy.get('.passwordError');
     const submitButton = () => cy.get('button')
 
 
@@ -68,26 +69,33 @@ describe('Form Testing', () => {
         })
     });
     
-  
-    
-     
+   describe('Error message tests', () => {
+        it('Types characters in the name field under required amt', () => {
+            nameField()
+                .type('Br')
+                .should('have.value', 'Br');       
+           nameError()
+                .should('contain', 'Please enter a name greater than 4 characters')
+        })
+
+        it('Types characters in the email field using wrong format', () => {
+            emailField()
+                .type('email@email')
+                .should('have.value', 'email@email');       
+           emailError()
+                .should('contain', 'Please enter a valid email address')
+        })
+
+        it('Types characters in the password field under required amt', () => {
+            passwordField()
+                .type('123456789')
+                .should('have.value', '123456789');       
+           passwordError()
+                .should('contain', 'Please create a strong password that is greater than 10 characters')
+        })
+    })
 
     
-    
-    // describe('Tests TOS checkbox', function() {
-    //     //Arrange
-    //     it('Checks to see if the checkbox can be used', function() {
-    //         //Act   
-    //         cy.get('input[name="agree"]').click().should('be.enabled')
-    //     })
-    // });
-
-    // describe('Error message tests', () => {
-    //     it('leaves fields blank to test if errors show', () => {
-    //         cy.get('.passwordError').should('contain', 'Please create a strong password that is greater than 10 characters')
-    //     })
-    // })
-
     
     // describe('Corrects all fields, submits form and checks for cleared fields', function() {
     //     //Arrange
