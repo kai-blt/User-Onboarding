@@ -6,15 +6,28 @@ describe('Form Testing', () => {
         cy.visit('http://localhost:3000/');
     })
 
+    //Helper functions to avoid repetition
+    const nameField = () => cy.get('input[name="name"]');
+    const emailField = () => cy.get('input[name="email"]');
+    const passwordField = () => cy.get('input[name="password"]');
+    const roleDropdown = () =>  cy.get('select[name="role"]');
+    const radioButton = () => cy.get('input[name="bestlanguage"]');
+    const tosCheckbox = () =>  cy.get('input[name="agree"]');
+    const nameError = () => cy.get('.nameError');
+    const emailError = () => cy.get('.emailError');
+    const submitButton = () => cy.get('button')
+
+    
+
     describe('Name Field Testing', function() {
         //Arrange
         it('Tests the name and it\'s error message if not enough characters', function() {
             //Act   
-           
-            cy.get('input[name="name"]').type('Tes').should('have.value', 'Tes')
+           nameField()
+           .type('Tes').should('have.value', 'Tes')
             
             //Assert
-            cy.get('.nameError').should('contain', 'Please enter a name greater than 4 characters')
+            nameError().should('contain', 'Please enter a name greater than 4 characters')
         })
     });
     
